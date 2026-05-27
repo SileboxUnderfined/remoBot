@@ -3,4 +3,8 @@ name = "remobot"
 version = "0.1.0"
 description = "Add your description here"
 requires-python = ">=3.14"
-dependencies = []
+dependencies = [
+    "aiogram>=3.28.2",
+    "aiogram-dialog>=2.6.0",
+    "pydantic-settings>=2.14.1",
+]
