@@ -1,0 +1,25 @@
+[
+  {
+    "label": "UV: Run main.py",
+    "command": "uv run src/main.py",
+    "use_new_terminal": false
+  },
+  {
+    "label": "UV: Lint Code (Ruff)",
+    "command": "uv run ruff check src/",
+    "description": "Проверить код на ошибки и соответствие стилю (PEP 8)",
+    "use_new_terminal": false
+  },
+  {
+    "label": "UV: Autofix Code (Ruff)",
+    "command": "uv run ruff check src/ --fix",
+    "description": "Автоматически исправить безопасные ошибки в коде",
+    "use_new_terminal": false
+  },
+  {
+    "label": "UV: Check Types (Mypy)",
+    "command": "uv run mypy src/",
+    "description": "Строгая проверка аннотаций типов",
+    "use_new_terminal": false
+  }
+]
