@@ -1,0 +1,1 @@
+async def write_data(): pass # TODO: add
