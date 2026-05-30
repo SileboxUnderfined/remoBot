@@ -5,4 +5,5 @@ class AddHostSG(StatesGroup):
     add_port = State()
     add_user = State()
     add_password = State()
+    add_label = State()
     confirm = State()
