@@ -6,38 +6,48 @@ from ipaddress import IPv4Address
 from .states import AddHostSG
 from src.modules.funcs import write_data_and_next
 from .funcs import getter_confirm_data
+from src.modules.elements.get_text_window import create_get_text_window
 
-add_hostname_window_addhostsg = Window(
-    Const("Enter IP/Hostname"),
-    TextInput(type_factory=IPv4Address, on_success=write_data_and_next, id="ip_hostname"),
-    Cancel(Const("Back")),
+add_hostname_window_addhostsg = create_get_text_window(
+    name="IP/Hostname",
+    type_factory=IPv4Address,
+    on_success=write_data_and_next,
+    use_cancel=True,
     state=AddHostSG.add_hostname
 )
 
-add_port_window_addhostsg = Window(
-    Const("Enter port"),
-    TextInput(type_factory=int, on_success=write_data_and_next, id="port"),
-    Back(Const("Back")),
+add_port_window_addhostsg = create_get_text_window(
+    name="Port",
+    type_factory=int,
+    on_success=write_data_and_next,
     state=AddHostSG.add_port
 )
 
-add_user_window_addhostsg = Window(
-    Const("Enter username"),
-    TextInput(type_factory=str, on_success=write_data_and_next, id="username"),
-    Back(Const("Back")),
+add_user_window_addhostsg = create_get_text_window(
+    name="Username",
+    type_factory=str,
+    on_success=write_data_and_next,
     state=AddHostSG.add_user
 )
 
-add_password_window_addhostsg = Window(
-    Const("Enter password"),
-    TextInput(type_factory=str, on_success=write_data_and_next, id="password"),
-    Back(Const("Back")),
+add_password_window_addhostsg = create_get_text_window(
+    name="Password",
+    type_factory=str,
+    on_success=write_data_and_next,
     state=AddHostSG.add_password
+)
+
+add_label_window_addhostsg = create_get_text_window(
+    name="Label",
+    type_factory=str,
+    on_success=write_data_and_next,
+    state=AddHostSG.add_label
 )
 
 confirm_window_addhostsg = Window(
     Const("Confirm:"),
     Multi(
+        Format("Label: {label}"),
         Format("IP-address: {ip_hostname}:{port}"),
         Format("Username: {username}"),
         Format("Password: {password}"),
@@ -58,5 +68,6 @@ add_host_dialog = Dialog(
     add_port_window_addhostsg,
     add_user_window_addhostsg,
     add_password_window_addhostsg,
+    add_label_window_addhostsg,
     confirm_window_addhostsg
 )
