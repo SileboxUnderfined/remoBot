@@ -5,7 +5,7 @@ from aiogram_dialog.widgets.input import TextInput
 from ipaddress import IPv4Address
 from .states import AddHostSG
 from src.modules.funcs import write_data_and_next
-from .funcs import getter_confirm_data
+from .funcs import getter_confirm_data, save_data_and_quit
 from src.modules.elements.get_text_window import create_get_text_window
 
 add_hostname_window_addhostsg = create_get_text_window(
@@ -54,7 +54,7 @@ confirm_window_addhostsg = Window(
         sep="\n"
     ),
     Group(
-        Button(Const("Correct"), id="correct_button"),
+        Button(Const("Correct"), id="correct_button", on_click=save_data_and_quit),
         SwitchTo(Const("Rewrite"), state=AddHostSG.add_hostname, id="restart"),
         Cancel(Const("Back to main menu")),
         width=2

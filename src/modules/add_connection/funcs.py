@@ -1,12 +1,30 @@
+from aiogram_dialog.widgets.kbd import Button
+from aiogram.types import CallbackQuery
 from aiogram_dialog.widgets.input import TextInput
-from aiogram_dialog import DialogManager
+from aiogram_dialog import DialogManager, StartMode
+from src.models.host import Host
+from src.modules.main_menu.states import MainMenuSG
 
 async def getter_confirm_data(dialog_manager: DialogManager, **kwargs):
     return {
         "ip_hostname": dialog_manager.dialog_data['ip_hostname'],
         "port": dialog_manager.dialog_data['port'],
         "username": dialog_manager.dialog_data['username'],
-        "password": dialog_manager.dialog_data['password']
+        "password": dialog_manager.dialog_data['password'],
+        "label": dialog_manager.dialog_data['label']
     }
 
-async def write_data(): pass # TODO: add
+async def save_data_and_quit(callback: CallbackQuery, button: Button, manager: DialogManager):
+    if await Host.filter(label=manager.dialog_data['label']).exists():
+        await callback.answer("This host label already exists!")
+        return
+
+    await Host.create(
+        label=manager.dialog_data['label'],
+        hostname=manager.dialog_data['ip_hostname']+manager.dialog_data['port'],
+        username=manager.dialog_data['username'],
+        password=manager.dialog_data['password'],
+    )
+
+    await callback.answer("Host successfully added!")
+    await manager.start(MainMenuSG.start, mode=StartMode.RESET_STACK)
