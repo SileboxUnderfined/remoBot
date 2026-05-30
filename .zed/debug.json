@@ -1,15 +1,15 @@
-// Project-local debug tasks
-//
-// For more documentation on how to configure debug tasks,
-// see: https://zed.dev/docs/debugger
 [
   {
     "adapter": "Debugpy",
     "label": "Debug main.py",
     "request": "launch",
-    "python": "$ZED_CUSTOM_PYTHON_ACTIVE_ZED_TOOLCHAIN",
+    "python": "${ZED_WORKTREE_ROOT}/.venv/bin/python",
     "args": [],
     "cwd": "$ZED_WORKTREE_ROOT",
-    "program": "\"$ZED_FILE\"",
+    //"program": "${ZED_WORKTREE_ROOT}/src/main.py",
+    "module": "src.main",
+    "env": {
+      "PYTHONPATH":"${ZED_WORKTREE_ROOT}"
+    }
   },
 ]

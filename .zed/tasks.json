@@ -1,7 +1,7 @@
 [
   {
     "label": "UV: Run main.py",
-    "command": "uv run src/main.py",
+    "command": "uv run python -m src.main",
     "use_new_terminal": false
   },
   {

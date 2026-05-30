@@ -9,3 +9,8 @@ dependencies = [
     "pydantic-settings>=2.14.1",
     "tortoise-orm>=1.1.7",
 ]
+
+[dependency-groups]
+dev = [
+    "debugpy>=1.8.20",
+]
