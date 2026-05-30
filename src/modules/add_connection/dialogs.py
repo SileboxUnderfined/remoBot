@@ -4,31 +4,33 @@ from aiogram_dialog.widgets.kbd import Button, SwitchTo, Next, Cancel, Back, Gro
 from aiogram_dialog.widgets.input import TextInput
 from ipaddress import IPv4Address
 from .states import AddHostSG
+from src.modules.funcs import write_data_and_next
+from .funcs import getter_confirm_data
 
 add_hostname_window_addhostsg = Window(
     Const("Enter IP/Hostname"),
-    TextInput(type_factory=IPv4Address, on_success=Next(), id="ip_hostname"),
+    TextInput(type_factory=IPv4Address, on_success=write_data_and_next, id="ip_hostname"),
     Cancel(Const("Back")),
     state=AddHostSG.add_hostname
 )
 
 add_port_window_addhostsg = Window(
     Const("Enter port"),
-    TextInput(type_factory=int, on_success=Next(), id="port"),
+    TextInput(type_factory=int, on_success=write_data_and_next, id="port"),
     Back(Const("Back")),
     state=AddHostSG.add_port
 )
 
 add_user_window_addhostsg = Window(
     Const("Enter username"),
-    TextInput(type_factory=str, on_success=Next(), id="username"),
+    TextInput(type_factory=str, on_success=write_data_and_next, id="username"),
     Back(Const("Back")),
     state=AddHostSG.add_user
 )
 
 add_password_window_addhostsg = Window(
     Const("Enter password"),
-    TextInput(type_factory=str, on_success=Next(), id="password"),
+    TextInput(type_factory=str, on_success=write_data_and_next, id="password"),
     Back(Const("Back")),
     state=AddHostSG.add_password
 )
@@ -47,12 +49,14 @@ confirm_window_addhostsg = Window(
         Cancel(Const("Back to main menu")),
         width=2
     ),
-    state=AddHostSG.confirm
+    state=AddHostSG.confirm,
+    getter=getter_confirm_data
 )
 
-add_host_sg = Dialog(
+add_host_dialog = Dialog(
     add_hostname_window_addhostsg,
     add_port_window_addhostsg,
     add_user_window_addhostsg,
-    add_password_window_addhostsg
+    add_password_window_addhostsg,
+    confirm_window_addhostsg
 )
