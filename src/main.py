@@ -1,3 +1,4 @@
+from src.modules.edit_connection.dialogs import edit_host_dialog
 from aiogram import Bot, Dispatcher
 from aiogram.filters import Command, CommandStart
 from aiogram.types import Message, User
@@ -7,7 +8,7 @@ from .modules.main_menu.dialogs import main_menu_dialog
 from .modules.add_connection.dialogs import add_host_dialog
 from .modules.main_menu.states import MainMenuSG
 from aiogram_dialog import setup_dialogs, DialogManager
-from tortoise import Tortoise, run_async
+from tortoise import Tortoise
 import asyncio, logging
 
 storage = MemoryStorage()
@@ -15,6 +16,7 @@ bot = Bot(token=settings.BOT_TOKEN,)
 dp = Dispatcher(storage=storage)
 dp.include_router(main_menu_dialog)
 dp.include_router(add_host_dialog)
+dp.include_router(edit_host_dialog)
 setup_dialogs(dp)
 
 @dp.message(CommandStart())
