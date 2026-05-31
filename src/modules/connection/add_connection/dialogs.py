@@ -1,3 +1,4 @@
+from src.modules.elements.confirm_window import create_confirm_window
 from src.modules.elements.prints import print_host
 from aiogram_dialog import Window, Dialog
 from aiogram_dialog.widgets.text import Const, Format, Multi
@@ -45,15 +46,10 @@ add_label_window_addhostsg = create_get_text_window(
     state=AddHostSG.add_label
 )
 
-confirm_window_addhostsg = Window(
-    Const("Confirm:"),
-    print_host(),
-    Group(
-        Button(Const("Correct"), id="correct_button", on_click=save_data_and_quit),
-        SwitchTo(Const("Rewrite"), state=AddHostSG.add_hostname, id="restart"),
-        Cancel(Const("Back to main menu")),
-        width=2
-    ),
+confirm_window_addhostsg = create_confirm_window(
+    print_f=print_host,
+    save_data_and_quit=save_data_and_quit,
+    rewrite_state=AddHostSG.add_hostname,
     state=AddHostSG.confirm,
     getter=getter_confirm_data
 )
