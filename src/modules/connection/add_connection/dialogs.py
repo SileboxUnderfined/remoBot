@@ -1,4 +1,4 @@
-from src.modules.elements.print_host import print_host
+from src.modules.elements.prints import print_host
 from aiogram_dialog import Window, Dialog
 from aiogram_dialog.widgets.text import Const, Format, Multi
 from aiogram_dialog.widgets.kbd import Button, SwitchTo, Next, Cancel, Back, Group

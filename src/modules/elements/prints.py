@@ -8,3 +8,10 @@ def print_host() -> Multi:
         Format("Password: {dialog_data[host].password}"),
         sep="\n"
     )
+
+def print_operation() -> Multi:
+    return Multi(
+        Format("Label: {dialog_data[operation].label}"),
+        Format("Command: {dialog_data[operation].command}"),
+        sep="\n"
+    )
