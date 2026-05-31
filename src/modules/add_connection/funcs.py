@@ -7,34 +7,33 @@ from src.models.host import Host
 from src.modules.main_menu.states import MainMenuSG
 
 async def getter_confirm_data(dialog_manager: DialogManager, **kwargs):
+    dialog_manager.dialog_data['host'] = Host(
+        label=dialog_manager.dialog_data['label'],
+        hostname=dialog_manager.dialog_data['ip_hostname'],
+        port=dialog_manager.dialog_data['port'],
+        username=dialog_manager.dialog_data['username'],
+        password=dialog_manager.dialog_data['password']
+    )
     return {
-        "host":Host(
-            label=dialog_manager.dialog_data['label'],
-            hostname=dialog_manager.dialog_data['ip_hostname'],
-            port=dialog_manager.dialog_data['port'],
-            username=dialog_manager.dialog_data['username'],
-            password=dialog_manager.dialog_data['password']
-        )
+        "host":dialog_manager.dialog_data['host']
     }
 
 async def save_data_and_quit(callback: CallbackQuery, button: Button, manager: DialogManager):
-    if await Host.filter(label=manager.dialog_data['label']).exists():
+    host: Host = manager.dialog_data['host']
+    if await Host.exists(label=host.label):
         await callback.answer("This host label already exists!")
         return
 
-    host = Host(
-        label=manager.dialog_data['label'],
-        hostname=manager.dialog_data['ip_hostname'],
-        port=manager.dialog_data['port'],
-        username=manager.dialog_data['username'],
-        password=manager.dialog_data['password'],
-    )
+    try:
+        async with SSHConnection(host) as conn:
+            conn_result: SSHOperationResult = await SSHConnection.check_connection(conn)
 
-    async with SSHConnection(host) as conn:
-        conn_result: SSHOperationResult = await conn.check_connection()
+    except Exception as e:
+        await callback.answer(f"Failed while connecting to server: {e}")
 
     if not conn_result.success:
         await callback.answer(f"Failed while checking connection: {conn_result.result}")
+        return
 
     await host.save()
     await callback.answer("Host successfully added!")

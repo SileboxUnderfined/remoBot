@@ -57,11 +57,10 @@ class SSHConnection:
         except asyncssh.Error as e:
             raise SSHConnectionError(f"error while executing command: {e}")
 
-    async def check_connection(self) -> SSHOperationResult:
+    @staticmethod
+    async def check_connection(ssh_conn: SSHConnection) -> SSHOperationResult:
         try:
-            async with self:
-                await self.execute_command("echo 1")
-        except (SSHError,SSHConnectionError,Exception) as e:
-            return SSHOperationResult(False,str(e))
-
-        return SSHOperationResult(True)
+            await ssh_conn.execute_command("echo 1")
+            return SSHOperationResult(True)
+        except (SSHConnectionError, SSHError, Exception) as e:
+            return SSHOperationResult(False, str(e))
