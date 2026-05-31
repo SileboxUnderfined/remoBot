@@ -1,11 +1,11 @@
-from src.modules.edit_connection.dialogs import edit_host_dialog
+from .modules.connection.edit_connection.dialogs import edit_host_dialog
 from aiogram import Bot, Dispatcher
 from aiogram.filters import Command, CommandStart
 from aiogram.types import Message, User
 from aiogram.fsm.storage.memory import MemoryStorage
 from .settings import settings
 from .modules.main_menu.dialogs import main_menu_dialog
-from .modules.add_connection.dialogs import add_host_dialog
+from .modules.connection.add_connection.dialogs import add_host_dialog
 from .modules.main_menu.states import MainMenuSG
 from aiogram_dialog import setup_dialogs, DialogManager
 from tortoise import Tortoise

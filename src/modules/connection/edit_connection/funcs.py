@@ -1,4 +1,4 @@
-from src.modules.add_connection.states import AddHostSG
+from src.modules.connection.add_connection.states import AddHostSG
 from src.modules.main_menu.states import MainMenuSG
 from aiogram_dialog import DialogManager, StartMode
 from aiogram_dialog.widgets.kbd import Select, Button

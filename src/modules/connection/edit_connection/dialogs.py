@@ -1,5 +1,5 @@
 from src.modules.elements.print_host import print_host
-from src.modules.edit_connection.funcs import on_host_selected, get_all_hosts, rewrite_host, delete_host_btn
+from .funcs import on_host_selected, get_all_hosts, rewrite_host, delete_host_btn
 from src.modules.elements.select_host import select_host_scroll
 from aiogram_dialog import Window, Dialog
 from aiogram_dialog.widgets.text import Const
