@@ -1,18 +1,15 @@
 from src.modules.elements.prints import print_host
 from .funcs import on_host_selected, get_all_hosts, rewrite_host, delete_host_btn
-from src.modules.elements.select_host import select_host_scroll
+from src.modules.elements.select_scroll import select_scroll
 from aiogram_dialog import Window, Dialog
 from aiogram_dialog.widgets.text import Const
 from aiogram_dialog.widgets.kbd import Cancel, Group, Button, Back
 from .states import EditHostSG
 
-select_host_edithostsg = Window(
-    Const("Select Host"),
-    select_host_scroll(
-        on_click=on_host_selected,
-        items_key="hosts"
-    ),
-    Cancel(Const("Back")),
+select_host_edithostsg = select_scroll(
+    on_click=on_host_selected,
+    items_key="hosts",
+    widget_id="host",
     state=EditHostSG.select_host,
     getter=get_all_hosts
 )
