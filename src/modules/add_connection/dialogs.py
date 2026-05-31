@@ -1,3 +1,4 @@
+from src.modules.elements.print_host import print_host
 from aiogram_dialog import Window, Dialog
 from aiogram_dialog.widgets.text import Const, Format, Multi
 from aiogram_dialog.widgets.kbd import Button, SwitchTo, Next, Cancel, Back, Group
@@ -46,13 +47,7 @@ add_label_window_addhostsg = create_get_text_window(
 
 confirm_window_addhostsg = Window(
     Const("Confirm:"),
-    Multi(
-        Format("Label: {label}"),
-        Format("IP-address: {ip_hostname}:{port}"),
-        Format("Username: {username}"),
-        Format("Password: {password}"),
-        sep="\n"
-    ),
+    print_host(),
     Group(
         Button(Const("Correct"), id="correct_button", on_click=save_data_and_quit),
         SwitchTo(Const("Rewrite"), state=AddHostSG.add_hostname, id="restart"),

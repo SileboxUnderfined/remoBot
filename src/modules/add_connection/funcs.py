@@ -8,11 +8,13 @@ from src.modules.main_menu.states import MainMenuSG
 
 async def getter_confirm_data(dialog_manager: DialogManager, **kwargs):
     return {
-        "ip_hostname": dialog_manager.dialog_data['ip_hostname'],
-        "port": dialog_manager.dialog_data['port'],
-        "username": dialog_manager.dialog_data['username'],
-        "password": dialog_manager.dialog_data['password'],
-        "label": dialog_manager.dialog_data['label']
+        "host":Host(
+            label=dialog_manager.dialog_data['label'],
+            hostname=dialog_manager.dialog_data['ip_hostname'],
+            port=dialog_manager.dialog_data['port'],
+            username=dialog_manager.dialog_data['username'],
+            password=dialog_manager.dialog_data['password']
+        )
     }
 
 async def save_data_and_quit(callback: CallbackQuery, button: Button, manager: DialogManager):
