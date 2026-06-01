@@ -2,6 +2,8 @@
 
 A Telegram bot designed for remote server management and monitoring via SSH. It allows you to execute commands, monitor system status, and manage multiple connections directly from your Telegram client.
 
+## Main development at [Gitlab](https://gitlab.com/SileboxUnderfined/remoBot)
+
 ## Features
 - **SSH Management:** Execute commands on remote servers securely.
 - **Multi-host Support:** Manage multiple SSH connections.
