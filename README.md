@@ -19,8 +19,8 @@ BOT_TOKEN=your_telegram_bot_token_here
 ALLOWED_IDS=12345678,87654321
 ```
 
-- `BOT_TOKEN`: The API token you received from @BotFather.
-- `ALLOWED_IDS`: A comma-separated list of Telegram User IDs allowed to access the bot.
+- `BOT_TOKEN`: The API token you received from [@Botfather](https://t.me/BotFather).
+- `ALLOWED_IDS`: A comma-separated list of Telegram User IDs allowed to access the bot. **(NOW SUPPORT ONLY FOR 1 ALLOWED_ID!!!! DO NOT SEPARATE WITH COMMA)**
 
 ---
 
