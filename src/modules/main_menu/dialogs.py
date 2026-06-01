@@ -1,3 +1,4 @@
+from src.modules.manage_tasks.states import ManageTasksSG
 from src.modules.operation.execute_operations.states import ExecuteOperationsSG
 from src.modules.operation.edit_operation.states import EditOperationSG
 from src.modules.connection.edit_connection.states import EditHostSG
@@ -15,6 +16,7 @@ start_window_mainsg = Window(
     Column(
         SwitchTo(Const("Manage Hosts"),state=MainMenuSG.manage_hosts,id="manage_hosts_st"),
         SwitchTo(Const("Manage Operations"),state=MainMenuSG.manage_operations,id="manage_operations_st"),
+        Start(Const("Manage Tasks"),state=ManageTasksSG.select_task,id='manage_tasks_st')
     ),
     state=MainMenuSG.start
 )

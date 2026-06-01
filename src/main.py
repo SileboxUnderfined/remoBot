@@ -1,3 +1,4 @@
+from src.modules.manage_tasks.dialogs import manage_tasks_dialog
 from src.modules.operation.execute_operations.dialogs import execute_operations_dialog
 from src.modules.operation.edit_operation.dialogs import edit_operation_dialog
 from .modules.connection.edit_connection.dialogs import edit_host_dialog
@@ -23,6 +24,7 @@ dp.include_router(edit_host_dialog)
 dp.include_router(add_opeation_dialog)
 dp.include_router(edit_operation_dialog)
 dp.include_router(execute_operations_dialog)
+dp.include_router(manage_tasks_dialog)
 setup_dialogs(dp)
 
 @dp.message(CommandStart())
