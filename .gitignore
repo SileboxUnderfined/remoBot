@@ -193,3 +193,5 @@ cython_debug/
 .ruff_cache/
 *.sqlite3
 db.*
+
+data/

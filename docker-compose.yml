@@ -1,0 +1,10 @@
+services:
+   remobot:
+      build: .
+      image: remobot:latest
+      container_name: remobot
+      restart: unless-stopped
+      env_file:
+         - .env
+      volumes:
+         - ./data:/app/data

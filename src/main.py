@@ -13,7 +13,7 @@ from .modules.operation.add_operation.dialogs import add_opeation_dialog
 from .modules.main_menu.states import MainMenuSG
 from aiogram_dialog import setup_dialogs, DialogManager
 from tortoise import Tortoise
-import asyncio, logging
+import asyncio, logging, os
 
 storage = MemoryStorage()
 bot = Bot(token=settings.BOT_TOKEN,)
@@ -35,8 +35,10 @@ async def start(message: Message, dialog_manager: DialogManager):
         await dialog_manager.start(MainMenuSG.start)
 
 async def main():
+    if not os.path.exists("data"):
+        os.mkdir("data")
     await Tortoise.init(
-        db_url='sqlite://db.sqlite3',
+        db_url='sqlite://data/db.sqlite3',
         modules={'models':['src.models']}
     )
     await Tortoise.generate_schemas(safe=True)
