@@ -4,7 +4,7 @@ from typing import Dict, Any
 
 class BackgroundTaskManager:
     def __init__(self):
-        self._active_tasks: Dict[str, asyncio.Task]
+        self._active_tasks: Dict[str, asyncio.Task] = {}
         self._metadata: Dict[str, Dict[str, Any]] = {}
 
     def start_task(self, coro, user_id: int, description: str) -> str:
