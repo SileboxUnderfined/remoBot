@@ -1,3 +1,4 @@
+from src.modules.operation.edit_operation.dialogs import edit_operation_dialog
 from .modules.connection.edit_connection.dialogs import edit_host_dialog
 from aiogram import Bot, Dispatcher
 from aiogram.filters import Command, CommandStart
@@ -19,6 +20,7 @@ dp.include_router(main_menu_dialog)
 dp.include_router(add_host_dialog)
 dp.include_router(edit_host_dialog)
 dp.include_router(add_opeation_dialog)
+dp.include_router(edit_operation_dialog)
 setup_dialogs(dp)
 
 @dp.message(CommandStart())

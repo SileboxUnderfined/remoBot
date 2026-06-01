@@ -1,3 +1,4 @@
+from src.modules.operation.edit_operation.states import EditOperationSG
 from src.modules.connection.edit_connection.states import EditHostSG
 from aiogram_dialog import Window, Dialog
 from aiogram_dialog.widgets.text import Const, Multi
@@ -35,7 +36,7 @@ manage_operations_window_mainsg = Window(
     Column(
         Group(
             Start(Const("Add new Operation"),id="add_new_opeartion_st",state=AddOperationSG.add_command),
-            #Start(Const("Edit Operation"),id="edit_host_st", state=EditHostSG.select_host),
+            Start(Const("Edit Operation"),id="edit_host_st", state=EditOperationSG.select_operation),
             #Start(Const("Execute Operation(s)"))
             width=2
         ),
