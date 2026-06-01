@@ -6,23 +6,37 @@ from typing import Callable, Union
 from aiogram_dialog.widgets.kbd import ScrollingGroup, Select, Start, Button, Multiselect
 from aiogram_dialog.widgets.text import Format, Const
 
-def select_scroll(on_click: Callable, items_key: str, widget_id: str, state: State, getter: Callable, select_type: Union[type[Select],type[Multiselect]] = Select) -> Window:
+def select_scroll(
+    on_click: Callable, 
+    items_key: str, 
+    widget_id: str, 
+    state: State, 
+    getter: Callable, 
+    select_type: Union[type[Select],type[Multiselect]] = Select,
+    item_id_getter: Union[str,int] = 'label',
+    label_var: str = 'item.label'
+    ) -> Window:
+
+    if isinstance(item_id_getter, str):
+        op = operator.attrgetter(item_id_getter)
+    else:
+        op = operator.itemgetter(item_id_getter)
+    
     if select_type is Select:
         list_widget = Select(
-            Format("{item.label}"),
+            Format(f"{{{label_var}}}"),
             id=f"sel_select_{widget_id}",
-            item_id_getter=operator.attrgetter("label"),
+            item_id_getter=op,
             items=items_key,
             on_click=on_click
         )
     elif select_type is Multiselect:
         list_widget = Multiselect(
-            Format("✓ {item.label}"),
-            Format("{item.label}"),
+            Format(f"✓ {{{label_var}}}"),
+            Format(f" {{{label_var}}} "),
             id=f"sel_check_{widget_id}",
-            item_id_getter=operator.attrgetter('label'),
+            item_id_getter=op,
             items=items_key,
-            #on_state_changed=on_click
         )
 
     widgets: list = [
