@@ -1,3 +1,4 @@
+from src.modules.operation.execute_operations.states import ExecuteOperationsSG
 from src.modules.operation.edit_operation.states import EditOperationSG
 from src.modules.connection.edit_connection.states import EditHostSG
 from aiogram_dialog import Window, Dialog, StartMode
@@ -37,7 +38,7 @@ manage_operations_window_mainsg = Window(
         Group(
             Start(Const("Add new Operation"),id="add_new_opeartion_st",state=AddOperationSG.add_command),
             Start(Const("Edit Operation"),id="edit_host_st", state=EditOperationSG.select_operation),
-            #Start(Const("Execute Operation(s)"))
+            Start(Const("Execute Operation(s)"),id="execute_operations_st", state=ExecuteOperationsSG.select_operations),
             width=2
         ),
         Start(Const("Back"), state=MainMenuSG.start, mode=StartMode.RESET_STACK, id='back_main_menu_operations')
