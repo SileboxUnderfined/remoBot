@@ -1,3 +1,4 @@
+from src.background_manager import task_manager
 from src.modules.main_menu.states import MainMenuSG
 import asyncio
 from src.ssh.ssh_connection import SSHConnection
@@ -78,15 +79,16 @@ async def on_confirm(callback: CallbackQuery, button: Button, manager: DialogMan
         await callback.answer("No bot!")
         return
 
-    asyncio.create_task(
-        run_operations_background(
-            bot=callback.bot,
-            chat_id=callback.from_user.id,
-            hosts=hosts,
-            operations=operations
-        )
+    coro = run_operations_background(
+        bot=callback.bot,
+        chat_id=callback.from_user.id,
+        hosts=hosts,
+        operations=operations
     )
 
+    description = f"Executing {len(operations)} operations on {len(hosts)} hosts"
+    task_manager.start_task(coro, callback.from_user.id, description)
+    
     await callback.answer("Operations started!")
 
     await manager.start(MainMenuSG.start, mode=StartMode.RESET_STACK)
