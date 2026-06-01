@@ -1,6 +1,6 @@
 from src.modules.operation.edit_operation.states import EditOperationSG
 from src.modules.connection.edit_connection.states import EditHostSG
-from aiogram_dialog import Window, Dialog
+from aiogram_dialog import Window, Dialog, StartMode
 from aiogram_dialog.widgets.text import Const, Multi
 from aiogram_dialog.widgets.kbd import Group, Next, Back, Button, SwitchTo, Start, Cancel, Column, Row
 from .states import MainMenuSG
@@ -26,7 +26,7 @@ manage_hosts_window_mainsg = Window(
             Start(Const("Edit Host"),id="edit_host_st", state=EditHostSG.select_host),
             width=2
         ),
-        Back(Const("Back"))
+        Start(Const("Back"), state=MainMenuSG.start, mode=StartMode.RESET_STACK, id='back_main_menu_hosts')
     ),
     state=MainMenuSG.manage_hosts
 )
@@ -40,7 +40,7 @@ manage_operations_window_mainsg = Window(
             #Start(Const("Execute Operation(s)"))
             width=2
         ),
-        Back(Const("Back"))
+        Start(Const("Back"), state=MainMenuSG.start, mode=StartMode.RESET_STACK, id='back_main_menu_operations')
     ),
     state=MainMenuSG.manage_operations
 )

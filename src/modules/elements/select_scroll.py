@@ -1,8 +1,9 @@
+from src.modules.main_menu.states import MainMenuSG
 from aiogram.fsm.state import State
-from aiogram_dialog import Window
+from aiogram_dialog import Window, StartMode
 import operator
 from typing import Callable
-from aiogram_dialog.widgets.kbd import ScrollingGroup, Select, Cancel
+from aiogram_dialog.widgets.kbd import ScrollingGroup, Select, Cancel, Start
 from aiogram_dialog.widgets.text import Format, Const
 
 def select_scroll(on_click: Callable, items_key: str, widget_id: str, state: State, getter: Callable) -> Window:
@@ -20,7 +21,7 @@ def select_scroll(on_click: Callable, items_key: str, widget_id: str, state: Sta
             width=1,
             height=5
         ),
-        Cancel(Const("Back")),
+        Start(Const("Back"), state=MainMenuSG.start, id='back_to_main_menu', mode=StartMode.RESET_STACK),
         state=state,
         getter=getter
     )
