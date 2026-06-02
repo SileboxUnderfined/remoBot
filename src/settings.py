@@ -1,22 +1,26 @@
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic_settings import BaseSettings, SettingsConfigDict, NoDecode
 from pydantic import Field, BeforeValidator
-from typing import Any, Annotated
+from typing import Any, Annotated, Callable, TypeVar
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-"""
-def parse_comma_separated_list(value: Any) -> list[int] | Any:
-    if isinstance(value, str):
-        return [int(item.strip()) for item in value.split(",")]
-    return value
-"""
+T = TypeVar('T')
 
-#CommaSeparetedList = Annotated[list[int], BeforeValidator(parse_comma_separated_list)]
+CommaSeparatedList = Annotated[
+    list[T], 
+    NoDecode, 
+    BeforeValidator(
+        lambda v: 
+            [item.strip() for item in v.split(",") if item.strip()] 
+            if isinstance(v, str) 
+            else v
+    )
+]
 
 class Settings(BaseSettings):
     BOT_TOKEN: str = Field(...)
-    ALLOWED_IDS: int = Field(...)
+    ALLOWED_IDS: CommaSeparatedList[int] = Field(...)
     PROXY_URL: str | None = None
 
     model_config = SettingsConfigDict(

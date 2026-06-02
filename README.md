@@ -26,7 +26,7 @@ PROXY_URL="socks5://user:password@ip:port" # or "http://user:password@ip:port" (
 ```
 
 - `BOT_TOKEN`: The API token you received from [@Botfather](https://t.me/BotFather).
-- `ALLOWED_IDS`: A comma-separated list of Telegram User IDs allowed to access the bot. **(NOW SUPPORT ONLY FOR 1 ALLOWED_ID!!!! DO NOT SEPARATE WITH COMMA)**
+- `ALLOWED_IDS`: A comma-separated list of Telegram User IDs allowed to access the bot. 
 - `PROXY_URL`: SOCKS5 or HTTP(S) proxy URL. for HTTPS proxy url, use `http://` instead of `https://`
 ---
 

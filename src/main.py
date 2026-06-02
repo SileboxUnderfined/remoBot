@@ -38,7 +38,7 @@ setup_dialogs(dp)
 async def start(message: Message, dialog_manager: DialogManager):
     if message.from_user is None: return
     
-    if message.from_user.id == settings.ALLOWED_IDS:
+    if message.from_user.id in settings.ALLOWED_IDS:
         await dialog_manager.start(MainMenuSG.start)
 
 async def main():
