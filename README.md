@@ -44,8 +44,8 @@ This is the easiest way to get started
     ```bash
     docker run -d \
     --name remobot_app \
-    --env-file .env
-    -v $(pwd)/data:/app/data
+    --env-file .env \
+    -v $(pwd)/data:/app/data \
     ghcr.io/sileboxunderfined/remobot:main
     ```
 
@@ -53,8 +53,8 @@ This is the easiest way to get started
     ```bash
     docker run -d \
     --name remobot_app \
-    --env-file .env
-    -v $(pwd)/data:/app/data
+    --env-file .env \
+    -v $(pwd)/data:/app/data \
     registry.gitlab.com/sileboxunderfined/remobot
     ```
 
