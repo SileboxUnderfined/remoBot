@@ -59,7 +59,7 @@ This is the easiest way to get started
     ```
 
     Or using `docker-compose.yml` and image from github registry:
-    ```bash
+    ```yaml
     services:
         remobot:
             image: ghcr.io/sileboxunderfined/remobot:main
@@ -73,7 +73,7 @@ This is the easiest way to get started
     ```
 
     Or using `docker-compose.yml` and image from gitlab registry:
-    ```bash
+    ```yaml
     services:
         remobot:
             image: registry.gitlab.com/sileboxunderfined/remobot
