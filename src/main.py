@@ -42,7 +42,11 @@ async def main():
         modules={'models':['src.models']}
     )
     await Tortoise.generate_schemas(safe=True)
-    await dp.start_polling(bot)
+    
+    try:
+        await dp.start_polling(bot)
+    finally:
+        await bot.session.close()
 
 if __name__ in "__main__":
     logging.basicConfig(level=logging.INFO)
