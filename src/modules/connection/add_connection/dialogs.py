@@ -36,7 +36,8 @@ add_password_window_addhostsg = create_get_text_window(
     name="Password",
     type_factory=str,
     on_success=write_data_and_next,
-    state=AddHostSG.add_password
+    state=AddHostSG.add_password,
+    skippable=True
 )
 
 add_label_window_addhostsg = create_get_text_window(

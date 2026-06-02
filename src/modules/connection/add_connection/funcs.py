@@ -12,7 +12,7 @@ async def getter_confirm_data(dialog_manager: DialogManager, **kwargs):
         hostname=dialog_manager.dialog_data['ip_hostname'],
         port=dialog_manager.dialog_data['port'],
         username=dialog_manager.dialog_data['username'],
-        password=dialog_manager.dialog_data['password']
+        password=dialog_manager.dialog_data.get('password','')
     )
     return {
         "host":dialog_manager.dialog_data['host']
