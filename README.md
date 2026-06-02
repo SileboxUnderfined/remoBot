@@ -9,6 +9,7 @@ A Telegram bot designed for remote server management and monitoring via SSH. It 
 - **Multi-host Support:** Manage multiple SSH connections.
 - **Interactive UI:** Built with `aiogram-dialog` for a seamless user experience.
 - **Fast and Efficient:** Powered by `asyncssh` and `uv` package manager.
+- **Proxy Support** Supports HTTP(S) and SOCKS5 Proxy.
 
 ---
 
@@ -19,11 +20,12 @@ Before running the bot, you must provide your environment variables. Create a `.
 ```env
 BOT_TOKEN=your_telegram_bot_token_here
 ALLOWED_IDS=12345678,87654321
+PROXY_URL="socks5://user:password@ip:port" # or "http://user:password@ip:port" (even for https!!)
 ```
 
 - `BOT_TOKEN`: The API token you received from [@Botfather](https://t.me/BotFather).
 - `ALLOWED_IDS`: A comma-separated list of Telegram User IDs allowed to access the bot. **(NOW SUPPORT ONLY FOR 1 ALLOWED_ID!!!! DO NOT SEPARATE WITH COMMA)**
-
+- `PROXY_URL`: SOCKS5 or HTTP(S) proxy URL. for HTTPS proxy url, use `http://` instead of `https://`
 ---
 
 ## Installation Methods
