@@ -17,6 +17,7 @@ def parse_comma_separated_list(value: Any) -> list[int] | Any:
 class Settings(BaseSettings):
     BOT_TOKEN: str = Field(...)
     ALLOWED_IDS: int = Field(...)
+    PROXY_URL: str | None = None
 
     model_config = SettingsConfigDict(
         env_file=BASE_DIR / ".env",

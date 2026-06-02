@@ -1,3 +1,4 @@
+from aiogram.client.session.aiohttp import AiohttpSession
 from src.modules.manage_tasks.dialogs import manage_tasks_dialog
 from src.modules.operation.execute_operations.dialogs import execute_operations_dialog
 from src.modules.operation.edit_operation.dialogs import edit_operation_dialog
@@ -16,7 +17,13 @@ from tortoise import Tortoise
 import asyncio, logging, os
 
 storage = MemoryStorage()
-bot = Bot(token=settings.BOT_TOKEN,)
+
+if settings.PROXY_URL:
+    session = AiohttpSession(proxy=settings.PROXY_URL)
+else:
+    session = AiohttpSession()
+
+bot = Bot(token=settings.BOT_TOKEN,session=session)
 dp = Dispatcher(storage=storage)
 dp.include_router(main_menu_dialog)
 dp.include_router(add_host_dialog)
