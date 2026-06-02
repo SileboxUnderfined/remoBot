@@ -1,0 +1,36 @@
+stages:
+  - build
+
+build_image:
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    # Подготовка конфига для авторизации в GitLab Registry
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"auth\":\"$(printf "%s:%s" "$CI_REGISTRY_USER" "$CI_REGISTRY_PASSWORD" | base64 | tr -d '\n')\"}}}" > /kaniko/.docker/config.json
+    
+    # Сборка и пуш
+    # Мы создаем два тега: уникальный по хешу коммита и 'latest' (только для основной ветки)
+    - |
+      if [ "$CI_COMMIT_BRANCH" == "$CI_DEFAULT_BRANCH" ]; then
+        /kaniko/executor \
+          --context "${CI_PROJECT_DIR}" \
+          --dockerfile "${CI_PROJECT_DIR}/Dockerfile" \
+          --destination "${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHORT_SHA}" \
+          --destination "${CI_REGISTRY_IMAGE}:latest" \
+          --cache=true \
+          --cache-repo="${CI_REGISTRY_IMAGE}/cache"
+      else
+        /kaniko/executor \
+          --context "${CI_PROJECT_DIR}" \
+          --dockerfile "${CI_PROJECT_DIR}/Dockerfile" \
+          --destination "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}" \
+          --cache=true \
+          --cache-repo="${CI_REGISTRY_IMAGE}/cache"
+      fi
+  only:
+    - main
+    - master
+    - tags
+    - merge_requests
