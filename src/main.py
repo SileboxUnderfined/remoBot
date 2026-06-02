@@ -18,10 +18,7 @@ import asyncio, logging, os
 
 storage = MemoryStorage()
 
-if settings.PROXY_URL:
-    session = AiohttpSession(proxy=settings.PROXY_URL)
-else:
-    session = AiohttpSession()
+session = AiohttpSession(proxy=settings.PROXY_URL) if settings.PROXY_URL else AiohttpSession()
 
 bot = Bot(token=settings.BOT_TOKEN,session=session)
 dp = Dispatcher(storage=storage)
