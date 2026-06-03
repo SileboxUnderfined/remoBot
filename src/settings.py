@@ -22,6 +22,8 @@ class Settings(BaseSettings):
     BOT_TOKEN: str = Field(...)
     ALLOWED_IDS: CommaSeparatedList[int] = Field(...)
     PROXY_URL: str | None = None
+    SSH_AGENT_PATH: str | None = None
+    SSH_KEYS_PATH: CommaSeparatedList[str] | None = None
 
     model_config = SettingsConfigDict(
         env_file=BASE_DIR / ".env",

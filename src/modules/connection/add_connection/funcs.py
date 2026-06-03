@@ -30,6 +30,7 @@ async def save_data_and_quit(callback: CallbackQuery, button: Button, manager: D
 
     except Exception as e:
         await callback.answer(f"Failed while connecting to server: {e}")
+        return
 
     if not conn_result.success:
         await callback.answer(f"Failed while checking connection: {conn_result.result}")
