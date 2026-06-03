@@ -1,9 +1,11 @@
-from src.settings import settings
+import src.settings
+from src.settings import settings, SSHAuthType
 import asyncssh
 from src.models.host import Host
 from .exceptions import SSHConnectionError, SSHError
 from typing import Optional, Any
 from dataclasses import dataclass
+from os import environ
 
 @dataclass
 class SSHOperationResult:
@@ -24,15 +26,32 @@ class SSHConnection:
             "known_hosts": None
         }
 
+        auth_specified: bool = False
         if self._host.password:
             conn_kwargs['password'] = self._host.password
-        elif settings.SSH_AGENT_PATH is not None:
-            conn_kwargs['agent_path'] = settings.SSH_AGENT_PATH
-            conn_kwargs['client_keys'] = []
-        elif settings.SSH_KEYS_PATH is not None:
-            conn_kwargs['agent_path'] = None
-            conn_kwargs['client_keys'] = settings.SSH_KEYS_PATH
         else:
+            for auth_type in settings.SSH_AUTH_METHODS:
+                match auth_type:
+                    case SSHAuthType.SSH_AGENT:
+                        if settings.SSH_AGENT_PATH is None: continue
+                        conn_kwargs['agent_path'] = settings.SSH_AGENT_PATH
+                        conn_kwargs['client_keys'] = []
+                        auth_specified = True
+                        break
+
+                    case SSHAuthType.SSH_AGENT_ENVIRONMENT:
+                        if environ.get('SSH_AUTH_SOCK') is None: continue
+                        auth_specified = True
+                        break
+
+                    case SSHAuthType.SSH_KEYS:
+                        if settings.SSH_KEYS_PATH is None: continue
+                        conn_kwargs['agent_path'] = None
+                        conn_kwargs['client_keys'] = settings.SSH_KEYS_PATH
+                        auth_specified = True
+                        break
+                        
+        if not auth_specified:
             raise SSHConnectionError("You must specify either a password, or SSH_AGENT_PATH, or SSH_KEYS_PATH")
         
         try:
