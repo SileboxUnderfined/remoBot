@@ -8,9 +8,9 @@ from src.modules.main_menu.states import MainMenuSG
 
 async def getter_confirm_data(dialog_manager: DialogManager, **kwargs):
     dialog_manager.dialog_data['host'] = Host(
-        label=dialog_manager.dialog_data['label'],
+        label=dialog_manager.dialog_data.get('label',f"{dialog_manager.dialog_data['username']}@{dialog_manager.dialog_data['ip_hostname']}"),
         hostname=dialog_manager.dialog_data['ip_hostname'],
-        port=dialog_manager.dialog_data['port'],
+        port=dialog_manager.dialog_data.get('port',22),
         username=dialog_manager.dialog_data['username'],
         password=dialog_manager.dialog_data.get('password','')
     )

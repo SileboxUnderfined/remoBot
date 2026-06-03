@@ -22,7 +22,8 @@ add_port_window_addhostsg = create_get_text_window(
     name="Port",
     type_factory=int,
     on_success=write_data_and_next,
-    state=AddHostSG.add_port
+    state=AddHostSG.add_port,
+    skippable=True
 )
 
 add_user_window_addhostsg = create_get_text_window(
@@ -44,7 +45,8 @@ add_label_window_addhostsg = create_get_text_window(
     name="Label",
     type_factory=str,
     on_success=write_data_and_next,
-    state=AddHostSG.add_label
+    state=AddHostSG.add_label,
+    skippable=True
 )
 
 confirm_window_addhostsg = create_confirm_window(
